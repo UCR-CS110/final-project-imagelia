@@ -1,18 +1,14 @@
 
 const express = require( 'express' );
-const bodyParser = require( 'body-parser' )
 let router = express.Router();
 
 //base routing starts at /users/
 // router.get( '*', (req,res)=>{res.end('hi')});
 
-router.use( bodyParser.urlencoded( {extended: false} ) )
-router.use( bodyParser.json() );
 
-router.get( "/login:user", ( req, res ) => {
-        // console.log( req.user.body )
-        // console.log( req.password.body )
-        res.end( 'got it' );
+router.post( "/login", ( req, res ) => {
+        
+        res.send( `${req.body.user} ${req.body.password}`)
 
         //handle login
     });
