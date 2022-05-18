@@ -1,9 +1,12 @@
 const user = require( '../models/User' );
 const payload = require( '../util/payload' );
+const crypto = require( 'crypto' );
+const User = require('../models/User');
 
 function login( q, r ){
     let uname = q.body.user;
     let pass = q.body.password;
+    pass = payload.sha256( pass );
     console.log( 'h' );
     user.find( { username: uname, password: pass } ).lean()
         .then( i => {
@@ -26,6 +29,28 @@ function login( q, r ){
     
 }
 
+
+function signup( q, r ){
+    let uname = q.body.user;
+    let pass = q.body.password;
+    pass = payload.sha256( pass );
+    if( uname.length != 0 && pass.length != 0 ){
+        const u = new User({
+            username: uname,
+            password: pass
+        });
+
+        u.save().then( e => {
+            r.json( payload.createJsonPayload( true ) );
+        });
+        //were done 
+        return;
+    } else{
+        r.json( payload.createJsonPayload( false ) );
+    }
+}
+
 module.exports = {
-    login
+    login,
+    signup
 }
