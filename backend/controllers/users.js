@@ -1,32 +1,49 @@
 const sanitize = require( 'mongo-sanitize' );
 const crypto = require( 'crypto' );
 
-const user = require( '../models/User' );
-const payload = require( '../util/payload' );
+const utils = require( '../util/utils' );
+const session = require('../controllers/session');
+//model imports
 const User = require('../models/User');
+
 
 
 function login( q, r ){
     let uname = sanitize( q.body.user );
     let pass = sanitize( q.body.password );
-    pass = payload.sha256( pass );
-    console.log( 'h' );
-    user.find( { username: uname, password: pass } ).lean()
+    pass = utils.sha256( pass );
+
+    User.find( { username: uname, password: pass } ).lean()
         .then( i => {
-            console.log( i )
+            //console.log( i )
             if( i.length == 0 ){
                 //send failure payload
-                r.json( payload.createJsonPayload( false ) );
+                r.json( utils.createJsonPayload( false ) );
                 r.end();
                 return;
             }
 
-            //send success payload
-            r.json( payload.createJsonPayload( true ) );
-            r.end();
+
+
+            //create a new session
+            let expires = utils.epochDate( 10 );
+            session.createNew( uname, expires ).then( (sess) => {
+                let sessId = sess[0].id;
+                console.log( sessId );
+                if( sess ){
+                    r.cookie( 'SESSION', sessId, {maxAge: 10 * 60000})
+                    r.json( utils.createJsonPayload( true ) );
+                } else {
+                    r.json( utils.createJsonPayload( false ) );
+                }
+                
+            });
+            
+            
         })
         .catch( e => {
-            console.error( e );
+            console.log( 'error login' );
+            //console.error( e );
             r.end( 'l2' );
         });
     
@@ -36,7 +53,7 @@ function login( q, r ){
 function signup( q, r ){
     let uname = sanitize( q.body.user );
     let pass = sanitize( q.body.password );
-    pass = payload.sha256( pass );
+    pass = utils.sha256( pass );
     if( uname.length != 0 && pass.length != 0 ){
         const u = new User({
             username: uname,
@@ -44,12 +61,12 @@ function signup( q, r ){
         });
 
         u.save().then( e => {
-            r.json( payload.createJsonPayload( true ) );
+            r.json( utils.createJsonPayload( true ) );
         });
         //were done 
         return;
     } else{
-        r.json( payload.createJsonPayload( false ) );
+        r.json( utils.createJsonPayload( false ) );
     }
 }
 
