@@ -2,6 +2,13 @@ const utils = require( '../util/utils' );
 //model imports
 const Session = require('../models/Session');
 
+/**
+ * creates a new session in the database if one doesn't exists it will create,
+ * if one exists it will update
+ * @param {String} username 
+ * @param {Date} expires 
+ * @returns 
+ */
 async function createNew( username, expires){
     try{
         let sess = await hasValidSession( username )
@@ -30,6 +37,12 @@ async function createNew( username, expires){
     
 }
 
+/**
+ * Checks whither there is a session for the user or the id
+ * @param {String} username 
+ * @param {String} id 
+ * @returns 
+ */
 async function hasValidSession( username, id = null ){
     try{
         let search = {};

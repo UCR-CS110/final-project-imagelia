@@ -7,7 +7,11 @@ const session = require('../controllers/session');
 const User = require('../models/User');
 
 
-
+/**
+ * handles the login action from the routers
+ * @param {Request} q 
+ * @param {import('express').Response} r 
+ */
 function login( q, r ){
     let uname = sanitize( q.body.user );
     let pass = sanitize( q.body.password );
@@ -50,6 +54,11 @@ function login( q, r ){
 }
 
 
+/**
+ * handles the signup action from the routers
+ * @param {Request} q 
+ * @param {import('express').Response} r 
+ */
 function signup( q, r ){
     let uname = sanitize( q.body.user );
     let pass = sanitize( q.body.password );
