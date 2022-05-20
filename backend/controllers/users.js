@@ -1,11 +1,14 @@
+const sanitize = require( 'mongo-sanitize' );
+const crypto = require( 'crypto' );
+
 const user = require( '../models/User' );
 const payload = require( '../util/payload' );
-const crypto = require( 'crypto' );
 const User = require('../models/User');
 
+
 function login( q, r ){
-    let uname = q.body.user;
-    let pass = q.body.password;
+    let uname = sanitize( q.body.user );
+    let pass = sanitize( q.body.password );
     pass = payload.sha256( pass );
     console.log( 'h' );
     user.find( { username: uname, password: pass } ).lean()
@@ -31,8 +34,8 @@ function login( q, r ){
 
 
 function signup( q, r ){
-    let uname = q.body.user;
-    let pass = q.body.password;
+    let uname = sanitize( q.body.user );
+    let pass = sanitize( q.body.password );
     pass = payload.sha256( pass );
     if( uname.length != 0 && pass.length != 0 ){
         const u = new User({
