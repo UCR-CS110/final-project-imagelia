@@ -20,6 +20,9 @@ mongoose.connect( db, err => {
 const userRouter = require( './routes/users.js' ); //middleware
 app.use( '/users', userRouter );
 
+const commentRouter = require( './routes/comments' );
+app.use( '/comments', commentRouter );
+
 
 app.post( '/test/:test', (q,r)=>{
     console.log( q.body.test )
