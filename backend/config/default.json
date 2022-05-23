@@ -1,3 +1,4 @@
 {
-    "mongoURL" : "mongodb://209.129.8.10:27017/cs110"
+    "mongoURL" : "mongodb+srv://mrish001:ok6yRGXuduQPceCh@cluster0.edmzt.mongodb.net/cs110?retryWrites=true&w=majority",
+    "old": "mongodb://209.129.8.10:27017/cs110"
 }

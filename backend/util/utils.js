@@ -1,9 +1,9 @@
 const crypto = require( 'crypto');
 
-module.exports.createJsonPayload = function createJsonPayload( s = false){
+module.exports.createJsonPayload = function createJsonPayload( s = false, data = {}){
     return {
         success: s,
-        payload: { }
+        payload: data
     }
 }
 
