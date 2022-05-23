@@ -41,7 +41,6 @@ async function createNew( username, expires){
     }catch(e){
         console.error( 'failed to create session', e )
     }
-    
 }
 
 /**

@@ -6,6 +6,8 @@ const config = require( 'config' );
 const app = express();
 const PORT = 8080;
 
+app.use(express.static('public'))//allow public to bee seen by others
+
 // app.use( express.json() );
 // app.use( express.urlencoded( {extended: false}) )
 app.use( bodyParser.urlencoded( {extended: false} ) )
