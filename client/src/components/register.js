@@ -162,7 +162,7 @@ const Register = () => {
                     <p>
                         Already have an account<br />
                         <span className="line">
-                            <a href="#">Sign In</a>
+                            <a href="/login">Sign In</a>
                         </span>
                     </p>
                 </section>
