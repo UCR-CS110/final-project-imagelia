@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect, useContext} from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
-import {Link, useNavigate, useLocation} from 'react-router-dom';
 
-const LOGIN_URL = '/login'
+const LOGIN_URL = 'http://localhost:8080/users/login';
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -28,7 +27,7 @@ const Login = () => {
 
         try {
             // can change to JSON.stringify({username: user, password: pwd})
-            const response = await axios.post(LOGIN_URL, JSON.stringify({user, pwd}),
+            const response = await axios.post(LOGIN_URL, JSON.stringify({user, password: pwd}),
             {    
                 headers: { 'Content-Type': 'application/json'},
                 withCredentials: true
@@ -60,7 +59,7 @@ const Login = () => {
             <section>
                 <h1>Success!</h1>
                 <p>
-                    <a href="#">Sign In</a>
+                    <a href="/home">Sign In</a>
                 </p>
             </section>
         ) : (

@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect} from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon, FontAWesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register';
+const REGISTER_URL = 'http://localhost:8080/users/signup';
 
 const Register = () => {
     const userRef = useRef();
@@ -55,7 +55,7 @@ const Register = () => {
         //console.log(user, pwd);
         //setSuccess(true);
         try{
-            const response = await axios.post(REGISTER_URL, JSON.stringify({ user, pwd}),
+            const response = await axios.post(REGISTER_URL, JSON.stringify({ user, password: pwd}),
             {
                 headers: { 'Content-Type': 'application/json'},
                 withCredentials: true
@@ -66,6 +66,7 @@ const Register = () => {
 
         } catch (err) {
             if (err){
+                console.log(err);
                 setErrMsg('An error occurred');
             }
             errRef.current.focus();
@@ -78,7 +79,7 @@ const Register = () => {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="#">Sign In</a>
+                        <a href="/home">Sign In</a>
                     </p>
                 </section>
             ) : (
