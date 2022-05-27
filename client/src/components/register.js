@@ -55,16 +55,12 @@ const Register = () => {
         //console.log(user, pwd);
         //setSuccess(true);
         try{
-            const response = await axios.post(REGISTER_URL, JSON.stringify({ user, password: pwd}),
-            {
-                headers: { 'Content-Type': 'application/json'},
-                withCredentials: true
-            }
-        );
-        console.log(response.data);
-        setSuccess(true);
-
+            const response = await axios.post(REGISTER_URL, { user, password: pwd } );
+            //TODO catch for success false
+            console.log(response.data);
+            setSuccess(true);
         } catch (err) {
+            console.log( 'here?');
             if (err){
                 console.log(err);
                 setErrMsg('An error occurred');
@@ -79,7 +75,7 @@ const Register = () => {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="/home">Sign In</a>
+                        <a href="/login">Sign In</a>
                     </p>
                 </section>
             ) : (

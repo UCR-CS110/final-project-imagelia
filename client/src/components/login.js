@@ -27,16 +27,20 @@ const Login = () => {
 
         try {
             // can change to JSON.stringify({username: user, password: pwd})
-            const response = await axios.post(LOGIN_URL, JSON.stringify({user, password: pwd}),
-            {    
-                headers: { 'Content-Type': 'application/json'},
-                withCredentials: true
-            }
-            );
+            const response = await axios.post(LOGIN_URL, {user, password: pwd})
+            
             console.log(JSON.stringify(response.data));
-            const accessToken = response.data.accessToken;
-            setAuth({user, pwd, accessToken})
-
+            if( response.data.success ){
+                //TODO make cookies or do whatever this is
+                // or localStorage
+                const accessToken = response.data.accessToken;
+                setAuth({user, pwd, accessToken})
+                
+            } 
+            else {
+                //TODO error you no exist yo!
+            }
+            
             setUser('');
             setPwd('');
             setSuccess(true);
