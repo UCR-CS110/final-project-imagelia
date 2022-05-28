@@ -2,11 +2,12 @@ const express = require( 'express' );
 const bodyParser = require( 'body-parser' )
 const mongoose = require( 'mongoose' );
 const config = require( 'config' );
+const cors = require('cors')
 
 const app = express();
 const PORT = 8080;
 
-app.use(express.static('public'))//allow public to bee seen by others
+app.use(cors())
 
 // app.use( express.json() );
 // app.use( express.urlencoded( {extended: false}) )
