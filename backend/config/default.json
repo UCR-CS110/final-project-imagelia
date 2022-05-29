@@ -1,4 +1,6 @@
 {
     "mongoURL" : "mongodb+srv://mrish001:ok6yRGXuduQPceCh@cluster0.edmzt.mongodb.net/cs110?retryWrites=true&w=majority",
-    "old": "mongodb://209.129.8.10:27017/cs110"
+    "old": "mongodb://209.129.8.10:27017/cs110",
+    "salt": "sd87fyas8mnm78m3874r6fdj9sfmj6safk9sda6jgfdhnfg87nsmd86bshdjfm8s7aeh634nm27806n48m8fd75j46k237ir65gfh6n23846",
+    "sessionLength": 60
 }

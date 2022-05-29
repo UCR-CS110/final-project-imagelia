@@ -20,15 +20,6 @@ router.post( "/login", userController.login );
  */
 router.post( "/signup", userController.signup );
 
-const User = require( '../models/User');
-router.post( "/test", (q,r) => {
-    const s = new User({
-        username: 'test',
-        password: crypto.createHash('sha256').update("test").digest('hex')
-    });
-    
-    s.save().then(()=>r.end('saved'))
-    r.end( crypto.createHash('sha256').update("test").digest('hex') )
-});
+router.post( "/test", userController.tester );
 
 module.exports = router;
