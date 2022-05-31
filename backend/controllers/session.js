@@ -1,6 +1,8 @@
 const utils = require( '../util/utils' );
 //model imports
 const Session = require('../models/Session');
+const config = require( 'config' )
+const SALT = config.get( 'salt');
 
 /**
  * creates a new session in the database if one doesn't exists it will create,
@@ -41,7 +43,6 @@ async function createNew( username, expires){
     }catch(e){
         console.error( 'failed to create session', e )
     }
-    
 }
 
 /**
@@ -50,6 +51,7 @@ async function createNew( username, expires){
  * @param {String} id 
  * @returns 
  */
+//TODO test when passing a id
 async function hasValidSession( username, id = null ){
     try{
         let search = {};
