@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useContext} from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
+import Cookies from 'js-cookie';
 
 const LOGIN_URL = 'http://localhost:8080/users/login';
 
@@ -33,12 +34,17 @@ const Login = () => {
             if( response.data.success ){
                 //TODO make cookies or do whatever this is
                 // or localStorage
+                // localStorage.set( "name", "test" );
+                // localStorage.getItem( "" )
+                Cookies.set('name', 'user', {expires: 1});
+
                 const accessToken = response.data.accessToken;
                 setAuth({user, pwd, accessToken})
                 
             } 
             else {
                 //TODO error you no exist yo!
+                setErrMsg('Does not exist');
             }
             
             setUser('');
