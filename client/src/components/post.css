@@ -1,0 +1,17 @@
+.root {
+    background-color: blanchedalmond;
+    position: absolute;
+}
+
+.formImage {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+}
+.label {
+    padding-bottom: 10px;
+}
+
+.divForm {
+    width: 90%;
+}

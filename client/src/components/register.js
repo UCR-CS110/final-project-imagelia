@@ -55,7 +55,7 @@ const Register = () => {
         //console.log(user, pwd);
         //setSuccess(true);
         try{
-            const response = await axios.post(REGISTER_URL, { user, password: pwd } );
+            const response = await axios.post(REGISTER_URL, { user, password: pwd , displayName: user} );
             //TODO catch for success false
             console.log(response.data);
             setSuccess(true);
