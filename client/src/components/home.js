@@ -38,7 +38,7 @@ export default function Home() {
   );
 }
 
-const itemData = [
+/*const itemData = [
   {
     img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
     title: 'Breakfast',
@@ -52,4 +52,19 @@ const itemData = [
     title: 'Burger',
     author: '@rollelflex_graphy726',
   },
-];
+];*/
+
+let itemData;
+
+//sets itemData to be an array of the posts to be used in the React HTML above.
+window.addEventListener('load', function() {
+  setInterval(async function() {
+      fetch("http://localhost:8080/getPosts")
+      .then(response => response.json())
+      .then(data => {
+          itemData = data;
+      }).catch(err => {
+          console.log("Error when retrieving posts:", err);
+      });
+  }, 5000);
+});

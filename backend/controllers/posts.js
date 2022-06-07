@@ -6,10 +6,10 @@ let postId = postGenerator.postIdGenerator();
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './images');
+        cb(null, '../images');
     },
     filename: (req, file, cb) => {
-        cb(null, postId + '--' + file.originalname);
+        cb(null, postId);
     },
 });
 
@@ -20,8 +20,6 @@ function post(req, res) {
     const newPost = new Post ({
         title: req.body.title,
         user: req.body.user,
-        body: req.body.body,
-        picture: req.body.picture,
         id: postId
     });
     newPost.save().then(console.log("Post has been added to the database"))
@@ -29,6 +27,22 @@ function post(req, res) {
     upload.single('image'); //input name='image'
 }
 
+function getPosts() {
+    let arr = [];
+    Post.find().lean().then(items => {
+        for(var i = 0; i < items.length; i++) {
+            arr.push({
+                img: '../images/' + items[i].id,
+                title: items[i].title,
+                author: items[i].user
+            }
+            );
+        }
+    })
+    return arr;
+}
+
 module.exports = {
-    post
+    post,
+    getPosts
 };

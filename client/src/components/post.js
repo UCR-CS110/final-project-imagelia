@@ -11,7 +11,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import './post.css'
 
 
-function post() {
+function Post() {
   const [file, setFile] = useState('');
   const [title, setTitle] = useState('');
 
@@ -32,7 +32,8 @@ function post() {
         '& .MuiTextField-root': { m: 1, width: '25ch' },
       }}
       noValidate
-      autoComplete="off">
+      autoComplete="off"
+      enctype="multipart/form-data">
 
 
       <div className='divForm'>
@@ -41,13 +42,14 @@ function post() {
               id="standard-basic"
               label="Text"
               placeholder="Enter Text For Image"
+              name="title"
               onChange={event => setTitle(event.target.value)}
           />
 
           <TextField
               id="outlined-full-width"
               style={{ margin: 8 }}
-              name="upload-photo"
+              name="image"
               type="file"
               onChange={ handleChange}
           />
@@ -85,4 +87,4 @@ function post() {
   )
 }
 
-export default post
+export default Post
