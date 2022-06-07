@@ -86,7 +86,8 @@ async function signup( q, r ){
             if( isFound === null ){
                 const u = new User({
                     username: uname,
-                    password: hashed
+                    password: hashed,
+                    displayName: uname
                 });
         
                 u.save().then( e => {
