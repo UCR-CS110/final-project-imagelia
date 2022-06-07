@@ -26,6 +26,8 @@ app.use( '/users', userRouter );
 const commentRouter = require( './routes/comments' );
 app.use( '/comments', commentRouter );
 
+const postRouter = require('./routes/posts');
+app.use( '/posts', postRouter);
 
 app.post( '/test/:test', (q,r)=>{
     console.log( q.body.test )
