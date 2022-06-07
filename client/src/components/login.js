@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext} from "react";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
-import Cookies from 'js-cookie';
+import GoogleLogin from 'react-google-login'
 
 const LOGIN_URL = 'http://localhost:8080/users/login';
 
@@ -23,6 +23,17 @@ const Login = () => {
         setErrMsg('')
     }, [user, pwd])
 
+    const handleLogin = async (googleData) => {
+        const res = await fetch('/api/google-login', {
+          method: 'POST',
+          body: JSON.stringify({
+            token: googleData.tokenId,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -34,9 +45,9 @@ const Login = () => {
             if( response.data.success ){
                 //TODO make cookies or do whatever this is
                 // or localStorage
-                // localStorage.set( "name", "test" );
+                localStorage.set( "name", user );
                 // localStorage.getItem( "" )
-                Cookies.set('name', 'user', {expires: 1});
+                //Cookies.set('name', 'user', {expires: 1});
 
                 const accessToken = response.data.accessToken;
                 setAuth({user, pwd, accessToken})
@@ -96,7 +107,14 @@ const Login = () => {
                         required
                     />
                     <button>Sign In</button>
+
                 </form>
+                <GoogleLogin
+                    clientId='485873337875-uo1k50ettmv1isu7ell7esqbmmpsi47l.apps.googleusercontent.com'
+                    buttonText="Log in with Google"
+                    onSuccess={handleLogin}
+                    cookiePolicy={'single_host_origin'}
+                ></GoogleLogin>
                 <p>
                     New User?<br />
                     <span className="line">
