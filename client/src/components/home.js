@@ -2,7 +2,6 @@ import React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -43,9 +42,6 @@ const itemData = [
     img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
     title: 'Breakfast',
     author: '@bkristastucchio',
-    rows: 2,
-    cols: 2,
-    featured: true,
   },
   {
     img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
