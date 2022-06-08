@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -8,6 +8,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 export default function Home() {
+  //const itemData = useRef();
+  const [itemData, setItemData] = useState( [] );
+  
+  useEffect(() => {
+    //window.addEventListener('load', function() {
+      fetch("http://localhost:8080/posts/getPosts").then( r => r.json() ).then( d => {
+        setItemData( d.payload );
+      })
+      //console.log( d );
+      // setItemData( [{
+      //   img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+      //   title: 'Burger',
+      //   author: '@rollelflex_graphy726',
+      // }] )
+      // setInterval(async function() {
+      //     fetch("http://localhost:8080/posts/getPosts")
+      //     .then(response => response.json())
+      //     .then(data => {
+      //         setItemData( data );
+      //         console.log(itemData);
+      //     }).catch(err => {
+      //         console.log("Error when retrieving posts:", err);
+      //     });
+      // }, 5000);
+    //});
+  }, [])
   return (
 
     <ImageList>
@@ -37,7 +63,7 @@ export default function Home() {
   );
 }
 
-const itemData = [
+/*const itemData = [
   {
     img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
     title: 'Breakfast',
@@ -48,4 +74,6 @@ const itemData = [
     title: 'Burger',
     author: '@rollelflex_graphy726',
   },
-];
+];*/
+
+//sets itemData to be an array of the posts to be used in the React HTML above.

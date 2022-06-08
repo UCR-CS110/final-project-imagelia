@@ -1,17 +1,17 @@
-import React, { useRef, useState, useEffect, useContext} from "react";
-import AuthContext from "../context/AuthProvider";
+import React, { useRef, useState, useEffect} from "react";
+// import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 import GoogleLogin from 'react-google-login'
 
 const LOGIN_URL = 'http://localhost:8080/users/login';
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    // const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
     
     const[user, setUser] = useState('');
-    const[pwd, setPwd] = useState('');
+    const[pwd, setPwd] = useState('Password1!');
     const[errMsg, setErrMsg] = useState('');
     const[success, setSuccess] = useState(false);
 
@@ -47,20 +47,23 @@ const Login = () => {
                 // or localStorage
                 localStorage.set( "name", user );
                 // localStorage.getItem( "" )
-                //Cookies.set('name', 'user', {expires: 1});
 
-                const accessToken = response.data.accessToken;
-                setAuth({user, pwd, accessToken})
+                Cookies.set('name', 'user', {expires: 1});
+                const accessToken = response.data.payload.session;
+                Cookies.set( 'token', accessToken, {expires: 1} );
                 
+                // setAuth({user, pwd, accessToken})
+                setSuccess(true);
             } 
             else {
                 //TODO error you no exist yo!
                 setErrMsg('Does not exist');
+                setSuccess(false);
             }
             
             setUser('');
             setPwd('');
-            setSuccess(true);
+            
         } catch (err){
             if(!err.response){
                 setErrMsg('No server response')

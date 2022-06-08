@@ -26,14 +26,14 @@ const postSchema = new Schema({
         type: String,
         required: true,
     },
-    body: String,
+    /*body: String,
     picture:{
         URI:{
             type:String,
             required:true
         },
         alt:String
-    },
+    },*/
     created:{
         type: Date,
         default: Date.now,
