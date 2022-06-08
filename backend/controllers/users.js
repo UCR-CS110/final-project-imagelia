@@ -51,7 +51,7 @@ function login( q, r ){
                         session: sessId,
                         username: uname
                     }, SALT );
-                    r.json( utils.createJsonPayload( true, { session: returnSession } ) ); //it worked
+                    r.json( utils.createJsonPayload( true, { session: returnSession, displayName: i[0].displayName } ) ); //it worked
                 } else {
                     r.json( utils.createJsonPayload( false, { error: "Shit broke here. yo!" } ) );//db died edge case
                 }
@@ -130,6 +130,21 @@ async function signup( q, r ){
     }
 }
 
+async function changeName(q, r){
+    let displayName = q.body.newUser;
+    let userName = q.body.userName;
+
+    const filter = { username: userName };
+    const update = { displayName: displayName };
+    let doc = await User.findOneAndUpdate( filter, update, { new: true } );
+    if( doc ){
+        r.json(utils.createJsonPayload(true));
+    }
+    else{
+        r.json(utils.createJsonPayload(false));
+    }
+}
+
 /**
  * handles the testing action for the devs
  * TODO remove before live
@@ -158,5 +173,6 @@ async function tester( q, r ){
 module.exports = {
     login,
     signup,
-    tester
+    tester,
+    changeName
 }
