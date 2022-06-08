@@ -3,7 +3,7 @@ const postGenerator = require('../util/postIdGenerator.js');
 
 const utils = require( '../util/utils' );
 
-let postId = postGenerator.postIdGenerator();
+// let postId = postGenerator.postIdGenerator();
 
 // const fileStorageEngine = multer.diskStorage({
 //     destination: (req, file, cb) => {
