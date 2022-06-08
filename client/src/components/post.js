@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
-import { CardActionArea, CardMedia, CardContent, Typography, Button, Input } from "@mui/material";
+import { CardActionArea, CardContent, Typography, Input } from "@mui/material";
 // import {  } from "@mui/material";
 // import {  } from "@mui/material";
 // import {  } from "@mui/material";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
+// import UploadFileIcon from "@mui/icons-material/UploadFile";
 import IconButton from '@mui/material/IconButton';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import './post.css'
@@ -79,7 +79,7 @@ function Post() {
 
             <Card sx={{ maxWidth: 200 }}>
                 <CardActionArea>
-                    <img src={tempImage} width="200px"/>
+                    <img alt={title} src={tempImage} width="200px"/>
                 </CardActionArea>
                 <CardContent>
                     <Typography gutterBottom variant="span" component="span" >{title}</Typography>

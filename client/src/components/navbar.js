@@ -5,15 +5,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MenuItem from '@mui/material/MenuItem';
+// import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
+// import Menu from '@mui/material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+//   const [auth, setAuth] = React.useState(true);
+//   const [anchorEl, setAnchorEl] = React.useState(null);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -33,7 +33,7 @@ export default function MenuAppBar() {
             Imagelia
           </Typography>
           <Button href="/post">Post</Button>
-          {auth && (
+          {/* {auth && (
             <div>
               <IconButton
                 size="large"
@@ -46,7 +46,7 @@ export default function MenuAppBar() {
                 <AccountCircle />
               </IconButton>
             </div>
-          )}
+          )} */}
         </Toolbar>
       </AppBar>
     </Box>
