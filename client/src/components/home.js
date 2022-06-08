@@ -10,12 +10,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function Home() {
   //const itemData = useRef();
   const [itemData, setItemData] = useState( [] );
+  const [auth, setAuth] = useState( false );
+
+  
   
   useEffect(() => {
     //window.addEventListener('load', function() {
       fetch("http://localhost:8080/posts/getPosts").then( r => r.json() ).then( d => {
         setItemData( d.payload );
-      })
+      });
+      if( localStorage.getItem( 'isLoggedin' ) === 'true' ){
+        setAuth( true );
+      }else{
+        setAuth( false );
+      }
       //console.log( d );
       // setItemData( [{
       //   img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
@@ -45,18 +53,21 @@ export default function Home() {
             alt={item.title}
             loading="lazy"
           />
+          
           <ImageListItemBar
             title={item.title}
             subtitle={item.author}
             actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
-              >
-                <AddCommentIcon />
-              </IconButton>
+                auth && ( <>
+                    <IconButton
+                        sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                        aria-label={`info about ${item.title}`}
+                    >
+                        <AddCommentIcon />
+                    </IconButton>
+                </> )
             }
-          />
+          /> 
         </ImageListItem>
       ))}
     </ImageList>

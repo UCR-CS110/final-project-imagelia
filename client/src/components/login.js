@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect} from "react";
 import axios from "../api/axios";
 import GoogleLogin from 'react-google-login'
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+
 
 const LOGIN_URL = 'http://localhost:8080/users/login';
 
@@ -15,6 +17,7 @@ const Login = () => {
     const[pwd, setPwd] = useState('Password1!');
     const[errMsg, setErrMsg] = useState('');
     const[success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         userRef.current.focus();
@@ -43,10 +46,11 @@ const Login = () => {
             const response = await axios.post(LOGIN_URL, {user, password: pwd})
             
             console.log(JSON.stringify(response.data));
+            console.log( response.data.success );
             if( response.data.success ){
                 //TODO make cookies or do whatever this is
                 // or localStorage
-                localStorage.set( "name", user );
+                localStorage.setItem( "isLoggedin", true );
                 // localStorage.getItem( "" )
 
                 Cookies.set('name', 'user', {expires: 1});
@@ -55,9 +59,11 @@ const Login = () => {
                 
                 // setAuth({user, pwd, accessToken})
                 setSuccess(true);
+                navigate('/home');
             } 
             else {
                 //TODO error you no exist yo!
+                localStorage.setItem( "isLoggedin", false );
                 setErrMsg('Does not exist');
                 setSuccess(false);
             }
@@ -66,6 +72,7 @@ const Login = () => {
             setPwd('');
             
         } catch (err){
+            console.log( err )
             if(!err.response){
                 setErrMsg('No server response')
             }

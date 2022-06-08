@@ -13,8 +13,15 @@ import HomeIcon from '@mui/icons-material/Home';
 
 
 export default function MenuAppBar() {
-//   const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
 //   const [anchorEl, setAnchorEl] = React.useState(null);
+    React.useEffect(()=>{
+        if( localStorage.getItem( 'isLoggedin' ) === 'true' ){
+            setAuth( true );
+        }else{
+            setAuth( false );
+        }
+    },[])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -33,21 +40,32 @@ export default function MenuAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Imagelia
           </Typography>
-          <Button href="/post">Post</Button>
-          {/* {auth && (
+          
+          { auth && (
+              <>
+                <Button href="/post">Post</Button>
+                <div>
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                    href="/profile"
+                >
+                    <AccountCircle />
+                </IconButton>
+                </div>
+            </>
+          ) }
+          { !auth && (
             <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-                href="/profile"
-              >
-                <AccountCircle />
-              </IconButton>
+                <Typography variant="h6"  component="div" sx={{ flexGrow: 1 }}>
+                    <a href="/login" className='noDecoLink'>Login</a>
+                    <a href="/register" className='noDecoLink'>Sign Up</a>
+                </Typography>
             </div>
-          )} */}
+          ) }
         </Toolbar>
       </AppBar>
     </Box>

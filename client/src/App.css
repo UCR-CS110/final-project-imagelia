@@ -118,3 +118,8 @@ button {
 .line {
     display: inline-block;
 }
+
+.noDecoLink{
+    margin-right: 10px;
+    text-decoration: none;
+}
