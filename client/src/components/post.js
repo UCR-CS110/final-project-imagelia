@@ -9,6 +9,7 @@ import { Typography } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import './post.css'
+import axios from "../api/axios";
 
 
 function Post() {
@@ -22,7 +23,15 @@ function Post() {
   }
 
   function submit(e){
+    e.preventDefault();
+
     console.log("submit");
+    const formData = new FormData();
+    formData.append( 'title', title );
+    formData.append( 'image', file );
+    console.log( "i got here" );
+    axios.post("http://localhost:8080/posts/post", formData ).then(res => console.log( res ) );
+    
   }
 
   return (
@@ -33,7 +42,8 @@ function Post() {
       }}
       noValidate
       autoComplete="off"
-      enctype="multipart/form-data">
+      enctype="multipart/form-data"
+      onSubmit={submit}>
 
 
       <div className='divForm'>
@@ -59,7 +69,7 @@ function Post() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={submit}
+            type="submit"
           >
             <ArrowUpwardIcon />
           </IconButton>

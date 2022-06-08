@@ -10,7 +10,7 @@ const postController = require( '../controllers/posts' );
  * user = username trying to login
  * password = password user trying to login 
  */
-router.post( "/post", postController.post );
+//router.post( "/post", postController.post );
 
 router.get( "/getPosts", postController.getPosts );
 
