@@ -14,7 +14,7 @@ const Login = () => {
     const errRef = useRef();
     
     const[user, setUser] = useState('');
-    const[pwd, setPwd] = useState('Password1!');
+    const[pwd, setPwd] = useState('');
     const[errMsg, setErrMsg] = useState('');
     const[success, setSuccess] = useState(false);
     const navigate = useNavigate();
