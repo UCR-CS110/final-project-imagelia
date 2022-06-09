@@ -93,7 +93,7 @@ function Post() {
                     tempImage.length > 0 &&
                         <Card sx={{ maxWidth: 200 }}>
                             <CardActionArea>
-                                src={tempImage} width="200px"/>
+                                <img src={tempImage} width="200px"/>
                             </CardActionArea>
                             <CardContent>
                                 <Typography gutterBottom variant="span" component="span" >{title}</Typography>
