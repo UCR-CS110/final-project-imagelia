@@ -22,4 +22,6 @@ router.post( "/signup", userController.signup );
 
 router.post( "/test", userController.tester );
 
+router.post("/changeName", userController.changeName);
+
 module.exports = router;

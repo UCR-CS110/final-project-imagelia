@@ -53,7 +53,8 @@ const Login = () => {
                 localStorage.setItem( "isLoggedin", true );
                 // localStorage.getItem( "" )
 
-                Cookies.set('name', 'user', {expires: 1});
+                Cookies.set('name', user, {expires: 1});
+                Cookies.set('displayName', response.data.payload.displayName);
                 const accessToken = response.data.payload.session;
                 Cookies.set( 'token', accessToken, {expires: 1} );
                 
