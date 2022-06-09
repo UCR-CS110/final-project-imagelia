@@ -2,7 +2,7 @@ ul {
     list-style-type: none;
   }
   
-  .ul li {
+  ul li {
     margin-bottom: 15px;
     display: block;
     position: relative;

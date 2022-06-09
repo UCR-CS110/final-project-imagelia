@@ -19,7 +19,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="home" element={<Home />} />
-            <Route path="" element={<Comments />} />
+            <Route name="comments" path="/:postId" element={<Comments/>} />
             <Route path="profile" element={<Profile />} />
             <Route path="post" element={<Post />} />
         </Routes>

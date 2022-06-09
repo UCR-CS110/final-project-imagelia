@@ -22,3 +22,16 @@ module.exports.epochDate = function( mins ){
     let curr = new Date();
     return new Date( curr.getTime() + ( mins * 60000 ) );
 }
+
+
+module.exports.verifyUserToken = function( token ){
+    const jwt = require( 'jsonwebtoken' );
+    const config = require( 'config' )
+    const SALT = config.get( 'salt');
+    try{
+        let valid = jwt.verify( token, SALT );
+        return valid;
+    } catch( err ){
+        return false;
+    }
+}

@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect} from "react";
 import Cookies from "js-cookie";
 import axios from "../api/axios";
 
+
 const CHANGE_URL = 'http://localhost:8080/users/changeName';
 
 const Profile = () => {
@@ -52,4 +53,5 @@ const Profile = () => {
 }
 
 export default Profile;
+
 
