@@ -4,6 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -11,13 +12,13 @@ export default function Home() {
   //const itemData = useRef();
   const [itemData, setItemData] = useState( [] );
   const [auth, setAuth] = useState( false );
+  const [postId, setId] = useState('');
 
-  
-  
   useEffect(() => {
     //window.addEventListener('load', function() {
       fetch("http://localhost:8080/posts/getPosts").then( r => r.json() ).then( d => {
         setItemData( d.payload );
+        setId( d.payload.id )
       });
       if( localStorage.getItem( 'isLoggedin' ) === 'true' ){
         setAuth( true );
@@ -59,12 +60,15 @@ export default function Home() {
             subtitle={item.author}
             actionIcon={
                 auth && ( <>
+                  <a href={`${item.id}`}>
                     <IconButton
                         sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                         aria-label={`info about ${item.title}`}
                     >
                         <AddCommentIcon />
                     </IconButton>
+                  </a>
+                  
                 </> )
             }
           /> 

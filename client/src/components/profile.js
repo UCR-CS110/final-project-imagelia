@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const profile = () => {
+const Profile = () => {
     const[newUser, setNewUser] = useState('');
     const[success, setSuccess] = useState(false);
 
@@ -40,5 +40,5 @@ const profile = () => {
     )
 }
 
-export default profile
+export default Profile
 
