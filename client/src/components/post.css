@@ -15,3 +15,7 @@
 .divForm {
     width: 90%;
 }
+
+.divForm > div {
+    margin: 3px 15px;
+}

@@ -14,13 +14,19 @@ const Login = () => {
     const errRef = useRef();
     
     const[user, setUser] = useState('');
-    const[pwd, setPwd] = useState('Password1!');
+    const[pwd, setPwd] = useState('');
     const[errMsg, setErrMsg] = useState('');
     const[success, setSuccess] = useState(false);
     const navigate = useNavigate();
+    // const [auth, setAuth] = React.useState(false);
 
     useEffect(() => {
         userRef.current.focus();
+        // if( localStorage.getItem( 'isLoggedin' ) === 'true' ){
+        //     setAuth( true );
+        // }else{
+        //     setAuth( false );
+        // }
     }, [])
 
     useEffect(() => {
@@ -28,7 +34,7 @@ const Login = () => {
     }, [user, pwd])
 
     const handleLogin = async (googleData) => {
-        const res = await fetch('/api/google-login', {
+        const res = await fetch('/users/api/google-login', {
           method: 'POST',
           body: JSON.stringify({
             token: googleData.tokenId,
@@ -37,16 +43,17 @@ const Login = () => {
             'Content-Type': 'application/json',
           },
         });
+
+        console.log( res );
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             // can change to JSON.stringify({username: user, password: pwd})
             const response = await axios.post(LOGIN_URL, {user, password: pwd})
             
-            console.log(JSON.stringify(response.data));
-            console.log( response.data.success );
+            // console.log(JSON.stringify(response.data));
+            // console.log( response.data.success );
             if( response.data.success ){
                 //TODO make cookies or do whatever this is
                 // or localStorage
@@ -54,13 +61,13 @@ const Login = () => {
                 // localStorage.getItem( "" )
 
                 Cookies.set('name', user, {expires: 1});
-                Cookies.set('displayName', response.data.payload.displayName);
+                Cookies.set('displayName', response.data.payload.displayName, {expires: 1});
                 const accessToken = response.data.payload.session;
                 Cookies.set( 'token', accessToken, {expires: 1} );
                 
                 // setAuth({user, pwd, accessToken})
                 setSuccess(true);
-                navigate('/home');
+                navigate('/home', {replace: false});
             } 
             else {
                 //TODO error you no exist yo!

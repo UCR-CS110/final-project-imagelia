@@ -49,7 +49,8 @@ function login( q, r ){
                     r.cookie( 'SESSION', sessId, { maxAge: 10 * 60000 } )
                     let returnSession = jwt.sign({
                         session: sessId,
-                        username: uname
+                        username: uname,
+                        displayName: i[0].displayName
                     }, SALT );
                     r.json( utils.createJsonPayload( true, { session: returnSession, displayName: i[0].displayName } ) ); //it worked
                 } else {
@@ -132,13 +133,25 @@ async function signup( q, r ){
 
 async function changeName(q, r){
     let displayName = q.body.newUser;
-    let userName = q.body.userName;
-
+    let token = q.body.token;
+    let verify = utils.verifyUserToken( token )
+    
+    if( verify === false ){
+        console.log( 12312)
+        r.json( utils.createJsonPayload( false, {error: 'Login to edit your display name'}));
+        return;
+    }
+    let userName = verify.username;
     const filter = { username: userName };
     const update = { displayName: displayName };
     let doc = await User.findOneAndUpdate( filter, update, { new: true } );
     if( doc ){
-        r.json(utils.createJsonPayload(true));
+        let resultToken = jwt.sign({
+            session: verify.session,
+            username: verify.username,
+            displayName: displayName
+        }, SALT );
+        r.json( utils.createJsonPayload(true, { token: resultToken } ) );
     }
     else{
         r.json(utils.createJsonPayload(false));

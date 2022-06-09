@@ -57,11 +57,11 @@ function getPosts(req, res) {
 async function addComment(req, res) {
     let token = req.body.token;
     let verified = utils.verifyUserToken( token )
-    // if( !verified ){
-    //     res.json( utils.createJsonPayload( false, {'error': 'Have to be signed in to comment' }));
-    //     return;
-    // }
-    let username = sanitize.mongo(  req.body.username );
+    if( !verified ){
+        res.json( utils.createJsonPayload( false, {'error': 'Have to be signed in to comment' }));
+        return;
+    }
+    let username = verified.displayName;
     let postId = sanitize.mongo( req.body.postId );
     let comment = sanitize.mongo( req.body.comment );
 
