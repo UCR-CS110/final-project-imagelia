@@ -24,10 +24,6 @@ mongoose.connect( db, err => {
 const userRouter = require( './routes/users.js' ); //middleware
 app.use( '/users', userRouter );
 
-const commentRouter = require( './routes/comments' );
-app.use( '/comments', commentRouter );
-
-
 const postRouter = require('./routes/posts');
 app.use( '/posts', postRouter);
 

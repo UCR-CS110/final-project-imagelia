@@ -47,6 +47,7 @@ const postSchema = new Schema({
 
 module.exports = Item = mongoose.model( "post", postSchema );
 
+// module.exports = Item = mongoose.model( "comment", commentSchema );
 
 /*
 
