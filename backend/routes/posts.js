@@ -29,10 +29,15 @@ router.post( "/post", upload.single('image'), ( req, res ) =>  {
     console.log( "backend" )
     let token = req.body.token;
     let verified = utils.verifyUserToken( token );
+    if( !verified ){
+        res.json( utils.createJsonPayload( false, { error: "Login to post" } ) );
+        return;
+    }
+    let displayName = verified.displayName;
     postId = postId;
     const newPost = new Post ({
         title: req.body.title,
-        user: 'derp',
+        user: displayName,
         id: postId,
         
     });

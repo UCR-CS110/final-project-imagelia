@@ -5,7 +5,9 @@ import { Avatar } from '@mui/material'
 import { deepOrange } from '@mui/material/colors'
 import './comments.css'
 import axios from "../api/axios";
-import { useNavigate } from 'react-router-dom';
+import { ImageListItemBar,ImageListItem } from '@mui/material';
+import Cookies from 'js-cookie'
+
 
 const Comments = () => {
     const [auth, setAuth] = useState( false );
@@ -21,7 +23,6 @@ const Comments = () => {
     const { postId } = useParams()
     const [ready, setReady] = useState( false );
     const [commentText, setCommentText] = useState( '' );
-    const navigate = useNavigate();
 
     //let [searchParams, setSearchParams] = useSearchParams();
     useEffect(()=>{
@@ -51,7 +52,7 @@ const Comments = () => {
     e.preventDefault();
     
     axios.post("http://localhost:8080/posts/addComment", { 
-        token: '',
+        token: Cookies.get( 'token' ),
         username: "derpy", 
         comment: commentText,
         postId: post.id
@@ -66,18 +67,24 @@ const Comments = () => {
   }
 
   return (
-    <>
+    <div className='PostWrapper'>
     { ready && (
       <>
         <div>
-          <img
-              src={`${post.img}?w=248&fit=crop&auto=format`}
-              srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={post.title}
-              loading="lazy"
-            />
+            <ImageListItem>
+                <img
+                src={`${post.img}?w=248&fit=crop&auto=format`}
+                srcSet={`${post.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                alt={post.title}
+                loading="lazy"
+                />
+                <ImageListItemBar
+                title={post.title}
+                subtitle={'@'+post.user}
+            /> 
+            </ImageListItem>
         </div>
-        { true && (
+        { auth && (
           <form onSubmit={submit}>
             <input name="user" type="hidden" value=""></input>
             <input name="text" type="text" onChange={ (e) => setCommentText( e.target.value ) }></input>
@@ -106,7 +113,7 @@ const Comments = () => {
         </ul>
       </>
     ) }
-    </>
+    </div>
   )
 }
 

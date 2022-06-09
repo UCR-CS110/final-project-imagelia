@@ -4,7 +4,6 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -12,36 +11,17 @@ export default function Home() {
   //const itemData = useRef();
   const [itemData, setItemData] = useState( [] );
   const [auth, setAuth] = useState( false );
-  const [postId, setId] = useState('');
 
   useEffect(() => {
     //window.addEventListener('load', function() {
       fetch("http://localhost:8080/posts/getPosts").then( r => r.json() ).then( d => {
         setItemData( d.payload );
-        setId( d.payload.id )
       });
       if( localStorage.getItem( 'isLoggedin' ) === 'true' ){
         setAuth( true );
       }else{
         setAuth( false );
       }
-      //console.log( d );
-      // setItemData( [{
-      //   img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-      //   title: 'Burger',
-      //   author: '@rollelflex_graphy726',
-      // }] )
-      // setInterval(async function() {
-      //     fetch("http://localhost:8080/posts/getPosts")
-      //     .then(response => response.json())
-      //     .then(data => {
-      //         setItemData( data );
-      //         console.log(itemData);
-      //     }).catch(err => {
-      //         console.log("Error when retrieving posts:", err);
-      //     });
-      // }, 5000);
-    //});
   }, [])
   return (
 
@@ -57,7 +37,7 @@ export default function Home() {
           
           <ImageListItemBar
             title={item.title}
-            subtitle={item.author}
+            subtitle={'@'+item.user}
             actionIcon={
                 auth && ( <>
                   <a href={`${item.id}`}>

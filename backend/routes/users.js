@@ -20,8 +20,33 @@ router.post( "/login", userController.login );
  */
 router.post( "/signup", userController.signup );
 
-router.post( "/test", userController.tester );
+// router.post( "/test", userController.tester );
 
 router.post("/changeName", userController.changeName);
+
+const { OAuth2Client } = require('google-auth-library')
+const client = new OAuth2Client( '485873337875-uo1k50ettmv1isu7ell7esqbmmpsi47l.apps.googleusercontent.com')
+router.post("/users/api/google-login", async (req, res) => {
+    console.log( 'here?')
+    const { token }  = req.body
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: '485873337875-uo1k50ettmv1isu7ell7esqbmmpsi47l.apps.googleusercontent.com'
+    });
+    const { name, email, picture } = ticket.getPayload();    
+    console.log( { name, email, picture } );
+    // const user = await db.user.upsert({ 
+    //     where: { email: email },
+    //     update: { name, picture },
+    //     create: { name, email, picture }
+    // })
+
+    req.session.userId = user.id
+
+    console.log( )
+
+    res.status(201)
+    res.json(user)
+})
 
 module.exports = router;
